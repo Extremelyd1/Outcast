@@ -1,2 +1,2 @@
 # Outcast
-Zombie survival game
+A zombie survival game
