@@ -11,6 +11,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import entities.livingEntities.Player;
+
 public class Map {
 	
 	private final int TILE_DIMENSION = 32;
@@ -28,6 +30,17 @@ public class Map {
 	
 	public Image getBackground() {
 		return background;
+	}
+	
+	public void render(Graphics g, int windowWidth, int windowHeight, Player player) {
+		
+		int x1 = player.getX() - windowWidth / 2;
+		int y1 = player.getY() - windowHeight / 2;
+		int x2 = x1 + windowWidth;
+		int y2 = x2 + windowHeight;
+		
+		g.drawImage(background, 0, 0, x1, y1, x2, y2);
+		
 	}
 	
 	public void generateBackground() throws SlickException {
@@ -70,7 +83,7 @@ public class Map {
 
 		try {
 
-			BufferedImage sourceImage = ImageIO.read(new File("res/map/map1.png"));
+			BufferedImage sourceImage = ImageIO.read(new File("res/map/map.png"));
 			colorData = new Color[sourceImage.getWidth()][sourceImage.getHeight()];
 			width = sourceImage.getWidth() * TILE_DIMENSION;
 			height = sourceImage.getHeight() * TILE_DIMENSION;

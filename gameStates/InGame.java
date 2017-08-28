@@ -5,6 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import entities.livingEntities.Player;
+import input.InGameKeyListener;
 import map.Map;
 
 public class InGame implements GameState {
@@ -12,11 +13,17 @@ public class InGame implements GameState {
 	private Map map;
 	private Player player;
 	
+	public Player getPlayer() {
+		return player;
+	}
+	
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		
 		map = new Map();
 		player = new Player(100, 100);
+		
+		container.getInput().addKeyListener(new InGameKeyListener(this));
 		
 	}
 
@@ -28,8 +35,8 @@ public class InGame implements GameState {
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		
-		map.getBackground().draw();
-		player.draw(g);
+		map.render(g, container.getWidth(), container.getHeight(), player);
+		player.draw(g, container.getWidth(), container.getHeight());
 		
 	}
 

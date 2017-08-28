@@ -12,10 +12,9 @@ public class Player extends LivingEntity {
 		
 	}
 	
-	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, int windowWidth, int windowHeight) {
 		g.setColor(Color.green);
-		g.fillOval(x, y, 32, 32);
+		g.fillOval(windowWidth / 2 - 16, windowHeight / 2 - 16, 32, 32);
 	}
 	
 }
