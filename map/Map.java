@@ -18,6 +18,7 @@ public class Map {
 	private final int TILE_DIMENSION = 32;
 
 	private Image background;
+	private Graphics g;
 
 	private int width;
 	private int height;
@@ -32,20 +33,35 @@ public class Map {
 		return background;
 	}
 
-	public void render(Graphics g, int windowWidth, int windowHeight, Player player) {
+	public void render(Graphics g, int windowWidth, int windowHeight, Player player) throws SlickException {
 
 		// But why tho
 		int x1 = (int) player.getX() - windowWidth / 2;
 		int y1 = (int) player.getY() - windowHeight / 2;
 		int x2 = x1 + windowWidth;
-		int y2 = x2 + windowHeight;
+		int y2 = y1 + windowHeight;
 		
-		x1 = (x1 <= 0) ? 0 : x1;
-		y1 = (y1 <= 0) ? 0 : y1;
-		x2 = (x2 >= width) ? width : x2;
-		y2 = (y2 >= height) ? height : x2;
+		if (x1 <= 0) {
+			x1 = 0;
+			x2 = windowWidth;
+		}
 		
-		g.drawImage(background, 0, 0, x1, y1, x2, y2);
+		if (y1 <= 0) {
+			y1 = 0;
+			y2 = windowHeight;
+		}
+		
+		if (x2 >= width) {
+			x2 = width;
+			x1 = width - windowWidth;
+		}
+		
+		if (y2 >= height) {
+			y2 = height;
+			y1 = height - windowHeight;
+		}
+		
+		g.drawImage(background, 0, 0, windowWidth, windowHeight, x1, y1, x2, y2);
 
 	}
 
@@ -53,7 +69,7 @@ public class Map {
 
 		Color[][] colorData = getColorData();
 		background = new Image(width, height);
-		Graphics g = background.getGraphics();
+		g = background.getGraphics();
 
 		for (int x = 0; x < colorData.length; x++) {
 			for (int y = 0; y < colorData[x].length; y++) {

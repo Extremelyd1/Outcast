@@ -9,6 +9,7 @@ public class Player extends LivingEntity {
 		
 		this.x = x;
 		this.y = y;
+		this.speed = 0.5;
 		
 	}
 	

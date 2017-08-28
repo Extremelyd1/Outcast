@@ -44,19 +44,19 @@ public class InGameKeyListener implements KeyListener {
 		switch (key) {
 
 		case Input.KEY_W:
-			player.setMotionY(-0.1);
+			player.setMotionY(-player.getSpeed());
 			break;
 
 		case Input.KEY_A:
-			player.setMotionX(-0.1);
+			player.setMotionX(-player.getSpeed());
 			break;
 
 		case Input.KEY_S:
-			player.setMotionY(0.1);
+			player.setMotionY(player.getSpeed());
 			break;
 
 		case Input.KEY_D:
-			player.setMotionX(0.1);
+			player.setMotionX(player.getSpeed());
 			break;
 
 		}

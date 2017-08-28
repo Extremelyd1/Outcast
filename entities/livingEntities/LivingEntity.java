@@ -8,8 +8,7 @@ public class LivingEntity extends Entity {
 	
 	protected double motionX;
 	protected double motionY;
-	protected double speedX;
-	protected double speedY;
+	protected double speed;
 	
 	public void setMotionX(double motionX) {
 		this.motionX = motionX;
@@ -17,6 +16,10 @@ public class LivingEntity extends Entity {
 	
 	public void setMotionY(double motionY) {
 		this.motionY = motionY;
+	}
+	
+	public double getSpeed() {
+		return speed;
 	}
 	
 }

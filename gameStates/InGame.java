@@ -21,7 +21,7 @@ public class InGame implements GameState {
 	public void init(GameContainer container) throws SlickException {
 		
 		map = new Map();
-		player = new Player(200, 200);
+		player = new Player(400, 400);
 		
 		container.getInput().addKeyListener(new InGameKeyListener(this));
 		
