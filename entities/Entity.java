@@ -6,20 +6,24 @@ import org.newdawn.slick.Image;
 public class Entity {
 
 	protected int ID;
-	protected int x;
-	protected int y;
+	protected double x;
+	protected double y;
 	protected Image texture;
 
 	public void draw(Graphics g) {
-		g.drawImage(texture, x, y);
+		g.drawImage(texture, (int) x, (int) y);
 	}
-	
-	public int getX() {
+
+	public double getX() {
 		return x;
 	}
-	
-	public int getY() {
+
+	public double getY() {
 		return y;
+	}
+
+	public void update(int delta) {
+
 	}
 
 }

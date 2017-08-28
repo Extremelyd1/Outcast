@@ -14,67 +14,73 @@ import org.newdawn.slick.SlickException;
 import entities.livingEntities.Player;
 
 public class Map {
-	
+
 	private final int TILE_DIMENSION = 32;
 
 	private Image background;
-	
+
 	private int width;
 	private int height;
 
 	public Map() throws SlickException {
 
 		generateBackground();
-		
+
 	}
-	
+
 	public Image getBackground() {
 		return background;
 	}
-	
+
 	public void render(Graphics g, int windowWidth, int windowHeight, Player player) {
-		
-		int x1 = player.getX() - windowWidth / 2;
-		int y1 = player.getY() - windowHeight / 2;
+
+		// But why tho
+		int x1 = (int) player.getX() - windowWidth / 2;
+		int y1 = (int) player.getY() - windowHeight / 2;
 		int x2 = x1 + windowWidth;
 		int y2 = x2 + windowHeight;
 		
+		x1 = (x1 <= 0) ? 0 : x1;
+		y1 = (y1 <= 0) ? 0 : y1;
+		x2 = (x2 >= width) ? width : x2;
+		y2 = (y2 >= height) ? height : x2;
+		
 		g.drawImage(background, 0, 0, x1, y1, x2, y2);
-		
+
 	}
-	
+
 	public void generateBackground() throws SlickException {
-		
+
 		Color[][] colorData = getColorData();
 		background = new Image(width, height);
 		Graphics g = background.getGraphics();
-		
+
 		for (int x = 0; x < colorData.length; x++) {
 			for (int y = 0; y < colorData[x].length; y++) {
-				
+
 				Color grass = new Color(0, 127, 12);
 				Color stone = new Color(128, 128, 128);
 				Color planks = new Color(127, 82, 0);
-				
+
 				if (colorData[x][y].equals(grass)) {
-					
+
 					g.drawImage(new Image("res/sprites/grass.png"), x * 32, y * 32);
-					
+
 				} else if (colorData[x][y].equals(stone)) {
-					
+
 					g.drawImage(new Image("res/sprites/dirt.png"), x * 32, y * 32);
-					
+
 				} else if (colorData[x][y].equals(planks)) {
-					
+
 					g.drawImage(new Image("res/sprites/planks.png"), x * 32, y * 32);
-					
+
 				}
-				
+
 			}
 		}
-		
+
 		g.flush();
-		
+
 	}
 
 	public Color[][] getColorData() {
