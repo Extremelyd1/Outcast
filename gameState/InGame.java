@@ -1,10 +1,10 @@
-package gameStates;
+package gameState;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import entities.livingEntities.Player;
+import entity.livingEntity.Player;
 import input.InGameKeyListener;
 import map.Map;
 

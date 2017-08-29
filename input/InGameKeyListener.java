@@ -3,8 +3,8 @@ package input;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.KeyListener;
 
-import entities.livingEntities.Player;
-import gameStates.InGame;
+import entity.livingEntity.Player;
+import gameState.InGame;
 
 public class InGameKeyListener implements KeyListener {
 

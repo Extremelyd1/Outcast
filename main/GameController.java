@@ -5,8 +5,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import gameStates.GameState;
-import gameStates.InGame;
+import gameState.GameState;
+import gameState.InGame;
 
 public class GameController extends BasicGame {
 	

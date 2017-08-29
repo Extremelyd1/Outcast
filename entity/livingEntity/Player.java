@@ -1,4 +1,4 @@
-package entities.livingEntities;
+package entity.livingEntity;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;

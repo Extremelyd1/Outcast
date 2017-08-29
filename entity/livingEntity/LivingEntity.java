@@ -1,6 +1,6 @@
-package entities.livingEntities;
+package entity.livingEntity;
 
-import entities.Entity;
+import entity.Entity;
 
 public class LivingEntity extends Entity {
 

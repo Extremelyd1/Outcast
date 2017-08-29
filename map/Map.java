@@ -11,7 +11,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import entities.livingEntities.Player;
+import entity.livingEntity.Player;
 
 public class Map {
 
@@ -36,10 +36,10 @@ public class Map {
 	public void render(Graphics g, int windowWidth, int windowHeight, Player player) throws SlickException {
 
 		// But why tho
-		int x1 = (int) player.getX() - windowWidth / 2;
-		int y1 = (int) player.getY() - windowHeight / 2;
-		int x2 = x1 + windowWidth;
-		int y2 = y1 + windowHeight;
+		float x1 = (float) (player.getX() - windowWidth / 2);
+		float y1 = (float) (player.getY() - windowHeight / 2);
+		float x2 = x1 + windowWidth;
+		float y2 = y1 + windowHeight;
 		
 		if (x1 <= 0) {
 			x1 = 0;
