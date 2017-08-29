@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -11,6 +12,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import entity.livingEntity.LivingEntity;
 import entity.livingEntity.Player;
 import map.tile.Tile;
 import map.tile.Tile.TileType;
@@ -36,9 +38,7 @@ public class Map {
 	private Tile[][][] tileData;
 
 	public Map() throws SlickException {
-
 		generateBackground();
-
 	}
 
 	public Image getBackground() {
@@ -46,7 +46,6 @@ public class Map {
 	}
 
 	public void render(Graphics g, int windowWidth, int windowHeight, Player player) throws SlickException {
-
 		int x1 = (int) (player.getX() - windowWidth / 2);
 		int y1 = (int) (player.getY() - windowHeight / 2);
 		int x2 = x1 + windowWidth;
@@ -73,7 +72,6 @@ public class Map {
 		}
 
 		g.drawImage(background, 0, 0, windowWidth, windowHeight, x1, y1, x2, y2);
-
 	}
 
 	/**
@@ -88,7 +86,6 @@ public class Map {
 	 * @return A single tile at the location given
 	 */
 	public Tile getTile(int x, int y, int z) {
-
 		if (z < 0 || z >= MAX_DEPTH) {
 			// TODO return error
 		}
@@ -96,7 +93,6 @@ public class Map {
 		int _x = x / TILE_DIMENSION;
 		int _y = y / TILE_DIMENSION;
 		return tileData[_x][_y][z];
-
 	}
 
 	/**
@@ -109,11 +105,55 @@ public class Map {
 	 * @return Stack of all tiles at that position
 	 */
 	public Tile[] getTiles(int x, int y) {
-
 		int _x = x / TILE_DIMENSION;
 		int _y = y / TILE_DIMENSION;
 		return tileData[_x][_y];
+	}
 
+	/**
+	 * Returns a list with all tiles that fall in the bounding box
+	 * 
+	 * @param x1
+	 *            X coordinate of the upper left corner
+	 * @param y1
+	 *            Y coordinate of the upper left corner
+	 * @param x2
+	 *            X coordinate of the lower right corner
+	 * @param y2
+	 *            Y coordinate of the lower right corner
+	 * @return All tiles that fall in this bounding box
+	 */
+	public Tile[][] getOverlappingTiles(int x1, int y1, int x2, int y2) {
+		int _x1 = x1 / TILE_DIMENSION;
+		int _y1 = y1 / TILE_DIMENSION;
+		int _x2 = x2 / TILE_DIMENSION;
+		int _y2 = y2 / TILE_DIMENSION;
+		ArrayList<Tile[]> tiles = new ArrayList<Tile[]>();
+
+		for (int i = _x1; i <= _x2; i++) {
+			for (int j = _y1; j <= _y2; j++) {
+				tiles.add(tileData[i][j]);
+			}
+		}
+
+		Tile[][] tileArray = new Tile[tiles.size()][MAX_DEPTH];
+		return tiles.toArray(tileArray);
+	}
+
+	/**
+	 * Returns all tiles that overlap with the entity
+	 * 
+	 * @param entity
+	 *            Entity in question
+	 * @return All tiles that overlap with this entity
+	 */
+	public Tile[][] getOverlappingTiles(LivingEntity entity) {
+		double x1 = entity.getX() - entity.getRadius();
+		double y1 = entity.getY() - entity.getRadius();
+		double x2 = entity.getX() + entity.getRadius();
+		double y2 = entity.getY() + entity.getRadius();
+
+		return getOverlappingTiles((int) x1, (int) y1, (int) x2, (int) y2);
 	}
 
 	/**
@@ -139,7 +179,20 @@ public class Map {
 				return true;
 		}
 		return false;
+	}
 
+	public boolean isSolid(Tile[][] tiles) {
+
+		for (Tile[] stack : tiles) {
+			for (Tile tile : stack) {
+				if (tile == null)
+					continue;
+
+				if (tile.isSolid())
+					return true;
+			}
+		}
+		return false;
 	}
 
 	public void generateBackground() throws SlickException {

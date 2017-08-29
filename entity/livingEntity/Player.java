@@ -15,6 +15,7 @@ public class Player extends LivingEntity {
 		this.y = y;
 		this.game = game;
 		this.speed = 0.5;
+		this.radius = 16;
 
 	}
 
@@ -24,12 +25,16 @@ public class Player extends LivingEntity {
 		// Check if the position must be updated
 		if (motionX != 0 || motionY != 0) {
 
-			// Calculate new coordinates
-			double _x = x + motionX * delta;
-			double _y = y + motionY * delta;
+			// Save old coordinates
+			double _x = x;
+			double _y = y;
 			
-			// Check if new coordinates are valid to walk to
-			if (!game.getMap().isSolid((int) _x, (int) _y)) {
+			// Apply motion
+			x += motionX * delta;
+			y += motionY * delta;
+			
+			// Check if move is valid, if not, revert motion
+			if (game.getMap().isSolid(game.getMap().getOverlappingTiles(this))) {
 				x = _x;
 				y = _y;
 			}
