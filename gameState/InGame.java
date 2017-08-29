@@ -13,6 +13,10 @@ public class InGame implements GameState {
 	private Map map;
 	private Player player;
 	
+	public Map getMap() {
+		return map;
+	}
+	
 	public Player getPlayer() {
 		return player;
 	}
@@ -21,7 +25,7 @@ public class InGame implements GameState {
 	public void init(GameContainer container) throws SlickException {
 		
 		map = new Map();
-		player = new Player(400, 400);
+		player = new Player(400, 400, this);
 		
 		container.getInput().addKeyListener(new InGameKeyListener(this));
 		
