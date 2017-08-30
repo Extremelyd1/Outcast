@@ -8,6 +8,7 @@ import controller.WaveController;
 import entity.livingEntity.Player;
 import input.InGameKeyListener;
 import map.Map;
+import util.Debugger;
 
 public class InGame implements GameState {
 
@@ -17,6 +18,8 @@ public class InGame implements GameState {
 	private Player player;
 
 	private WaveController waveController;
+
+	private Debugger debugger;
 
 	public InGame() {
 
@@ -43,6 +46,8 @@ public class InGame implements GameState {
 
 		map = new Map();
 		player = new Player(400, 400);
+		
+		this.debugger = new Debugger(this);
 
 		container.getInput().addKeyListener(new InGameKeyListener(this));
 
@@ -62,6 +67,9 @@ public class InGame implements GameState {
 
 		map.render(g, container, player);
 		player.draw(g, container.getWidth(), container.getHeight());
+		
+		if (debugger.getVerbose())
+			debugger.showDebug(g, container);
 
 	}
 

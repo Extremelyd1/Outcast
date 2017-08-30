@@ -11,6 +11,7 @@ public class Outcast {
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new GameController("Outcast"));
 			appgc.setDisplayMode(1280, 720, false);
+			appgc.setShowFPS(false);
 			appgc.setVerbose(false);
 			appgc.start();
 		} catch (SlickException e) {

@@ -12,6 +12,10 @@ public class LivingEntity extends Entity {
 	
 	protected double radius;
 	
+	public int getHealth() {
+		return health;
+	}
+	
 	public void setMotionX(double motionX) {
 		this.motionX = motionX;
 	}
