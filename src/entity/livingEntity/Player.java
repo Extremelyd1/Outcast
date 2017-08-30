@@ -7,40 +7,38 @@ import gameState.InGame;
 
 public class Player extends LivingEntity {
 
-	private InGame game;
-
-	public Player(int x, int y, InGame game) {
+	public Player(int x, int y) {
 
 		this.x = x;
 		this.y = y;
-		this.game = game;
 		this.speed = 0.2;
 		this.radius = 16;
 
 	}
 
 	@Override
-	public void update(int delta) {
+	public boolean update(int delta) {
 
 		// Check if the position must be updated
 		if (motionX != 0 || motionY != 0) {
 			applyMotion(delta);
 		}
 
+		return false;
 	}
 
 	private void applyMotion(int delta) {
-		// Save old coordinates
+		// Save current coordinates
 		double _x = x;
 		double _y = y;
 
 		x += motionX * delta;
-		if (game.getMap().isSolid(game.getMap().getOverlappingTiles(this))) {
+		if (InGame.getGame().getMap().isSolid(InGame.getGame().getMap().getOverlappingTiles(this))) {
 			x = _x;
 		}
 
 		y += motionY * delta;
-		if (game.getMap().isSolid(game.getMap().getOverlappingTiles(this))) {
+		if (InGame.getGame().getMap().isSolid(InGame.getGame().getMap().getOverlappingTiles(this))) {
 			y = _y;
 		}
 	}

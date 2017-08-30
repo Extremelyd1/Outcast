@@ -18,7 +18,7 @@ public class Tile {
 
 	/** Specifies whether the tile is solid (walkable) or not */
 	protected boolean solid;
-	
+
 	protected TileType type;
 
 	public Tile(int x, int y, int z, String texturePath, boolean solid, TileType type) {
@@ -30,7 +30,7 @@ public class Tile {
 		this.type = type;
 
 		loadTexture(texturePath);
-		
+
 	}
 
 	public int getX() {
@@ -44,7 +44,7 @@ public class Tile {
 	public int getZ() {
 		return z;
 	}
-	
+
 	public Image getTexture() {
 		return texture;
 	}
@@ -52,7 +52,7 @@ public class Tile {
 	public boolean isSolid() {
 		return solid;
 	}
-	
+
 	public TileType getType() {
 		return type;
 	}
@@ -64,6 +64,9 @@ public class Tile {
 	 *            Relative path to the texture
 	 */
 	public void loadTexture(String texturePath) {
+		if (texturePath == null)
+			return;
+
 		try {
 			texture = new Image(texturePath);
 		} catch (SlickException e) {
@@ -72,21 +75,24 @@ public class Tile {
 	}
 
 	/**
-	 * Direction of the tile. <br>
-	 * North = 0 degrees <br>
-	 * East = 90 degrees rotated clockwise <br>
-	 * South = 180 degrees (flipped in the y direction) <br>
-	 * West = 270 degrees rotated clockwise
+	 * Direction of the tile
 	 */
 	public enum TileDirection {
-		NORTH, EAST, SOUTH, WEST
+		// 0 degrees
+		NORTH,
+		// 90 degrees rotated clockwise
+		EAST,
+		// 180 degrees (flipped in the y direction)
+		SOUTH,
+		// 270 degrees rotated clockwise
+		WEST
 	}
 
 	/**
 	 * Defines the tile type of a tile.
 	 */
 	public enum TileType {
-		GRASS, PLANKS, STONE, DIRT
+		GRASS, PLANKS, STONE, DIRT, ZOMBIE_SPAWN, PLAYER_SPAWN
 	}
 
 }
