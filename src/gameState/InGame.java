@@ -41,7 +41,7 @@ public class InGame implements GameState {
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		
-		map.render(g, container.getWidth(), container.getHeight(), player);
+		map.render(g, container, player);
 		player.draw(g, container.getWidth(), container.getHeight());
 		
 	}

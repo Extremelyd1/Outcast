@@ -8,9 +8,11 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.util.Log;
 
 import entity.livingEntity.LivingEntity;
 import entity.livingEntity.Player;
@@ -23,6 +25,8 @@ public class Map {
 	private final int TILE_DIMENSION = 32;
 	/** The maximum layer depth of the map */
 	private final int MAX_DEPTH = 5;
+	/** The number of tiles that should be drawn in the height */
+	private final int TILES_IN_HEIGHT = 10;
 
 	/** Buffered background image */
 	private Image background;
@@ -41,37 +45,31 @@ public class Map {
 		generateBackground();
 	}
 
-	public Image getBackground() {
-		return background;
-	}
+	/**
+	 * Renders the background to the screen, centered at the player
+	 * 
+	 * @param g
+	 *            Graphics context
+	 * @param container
+	 *            Game container
+	 * @param player
+	 *            The player
+	 * @throws SlickException
+	 */
+	public void render(Graphics g, GameContainer container, Player player) throws SlickException {
+		// Calculate what to draw from the background image
+		int pixelsPerTile = container.getHeight() / TILES_IN_HEIGHT;
+		double tilesInWidth = container.getWidth() / pixelsPerTile;
+		int widthToDraw = (int) (tilesInWidth * TILE_DIMENSION);
+		int heightToDraw = TILES_IN_HEIGHT * TILE_DIMENSION;
 
-	public void render(Graphics g, int windowWidth, int windowHeight, Player player) throws SlickException {
-		int x1 = (int) (player.getX() - windowWidth / 2);
-		int y1 = (int) (player.getY() - windowHeight / 2);
-		int x2 = x1 + windowWidth;
-		int y2 = y1 + windowHeight;
+		// Calculate bounds of the rectangle to draw
+		int x1 = (int) player.getX() - widthToDraw / 2;
+		int y1 = (int) player.getY() - heightToDraw / 2;
+		int x2 = (int) player.getX() + widthToDraw / 2;
+		int y2 = (int) player.getY() + heightToDraw / 2;
 
-		if (x1 <= 0) {
-			x1 = 0;
-			x2 = windowWidth;
-		}
-
-		if (y1 <= 0) {
-			y1 = 0;
-			y2 = windowHeight;
-		}
-
-		if (x2 >= width) {
-			x2 = width;
-			x1 = width - windowWidth;
-		}
-
-		if (y2 >= height) {
-			y2 = height;
-			y1 = height - windowHeight;
-		}
-
-		g.drawImage(background, 0, 0, windowWidth, windowHeight, x1, y1, x2, y2);
+		g.drawImage(background, 0, 0, container.getWidth(), container.getHeight(), x1, y1, x2, y2);
 	}
 
 	/**
@@ -87,7 +85,8 @@ public class Map {
 	 */
 	public Tile getTile(int x, int y, int z) {
 		if (z < 0 || z >= MAX_DEPTH) {
-			// TODO return error
+			Log.error("The passed z value is not between 0 and MAX_DEPTH", new Exception("Depth value out of bounds"));
+			return null;
 		}
 
 		int _x = x / TILE_DIMENSION;
@@ -181,6 +180,13 @@ public class Map {
 		return false;
 	}
 
+	/**
+	 * Returns whether a tile in the array of tiles is solid.
+	 * 
+	 * @param tiles
+	 *            The array of tiles
+	 * @return True if one tile in the array is solid, false otherwise
+	 */
 	public boolean isSolid(Tile[][] tiles) {
 
 		for (Tile[] stack : tiles) {
