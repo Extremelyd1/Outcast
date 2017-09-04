@@ -4,6 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import gameState.InGame;
+import map.Map;
 
 public class Player extends LivingEntity {
 
@@ -33,12 +34,15 @@ public class Player extends LivingEntity {
 		double _y = y;
 
 		x += motionX * delta;
-		if (InGame.getGame().getMap().isSolid(InGame.getGame().getMap().getOverlappingTiles(this))) {
+
+		Map map = InGame.getGame().getMap();
+
+		if (map.isSolid(map.getOverlappingTiles(this))) {
 			x = _x;
 		}
 
 		y += motionY * delta;
-		if (InGame.getGame().getMap().isSolid(InGame.getGame().getMap().getOverlappingTiles(this))) {
+		if (map.isSolid(map.getOverlappingTiles(this))) {
 			y = _y;
 		}
 	}

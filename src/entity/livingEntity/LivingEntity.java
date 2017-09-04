@@ -4,6 +4,8 @@ import entity.Entity;
 
 public class LivingEntity extends Entity {
 
+	protected int maxHealth;
+	
 	protected int health;
 	
 	protected double motionX;
@@ -11,6 +13,10 @@ public class LivingEntity extends Entity {
 	protected double speed;
 	
 	protected double radius;
+	
+	public int getMaxHealth() {
+		return maxHealth;
+	}
 	
 	public int getHealth() {
 		return health;

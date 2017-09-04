@@ -21,9 +21,9 @@ public class SpawnTile extends Tile {
 	private HashMap<ZombieType, Integer> spawnQueue;
 
 	/** Target tile to walk to */
-	private Tile barrierTarget;
+	private BarrierTile barrierTarget;
 
-	public SpawnTile(int x, int y, int z, Tile barrierTarget) {
+	public SpawnTile(int x, int y, int z, BarrierTile barrierTarget) {
 
 		super(x, y, z, null, false, TileType.ZOMBIE_SPAWN);
 

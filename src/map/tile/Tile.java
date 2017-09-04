@@ -88,11 +88,4 @@ public class Tile {
 		WEST
 	}
 
-	/**
-	 * Defines the tile type of a tile.
-	 */
-	public enum TileType {
-		GRASS, PLANKS, STONE, DIRT, ZOMBIE_SPAWN, PLAYER_SPAWN
-	}
-
 }

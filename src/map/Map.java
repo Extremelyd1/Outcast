@@ -17,7 +17,7 @@ import org.newdawn.slick.util.Log;
 import entity.livingEntity.LivingEntity;
 import entity.livingEntity.Player;
 import map.tile.Tile;
-import map.tile.Tile.TileType;
+import map.tile.TileType;
 
 public class Map {
 

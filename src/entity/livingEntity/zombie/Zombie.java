@@ -4,17 +4,18 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import entity.livingEntity.LivingEntity;
+import map.tile.BarrierTile;
 import map.tile.Tile;
 
 public class Zombie extends LivingEntity {
 
 	/** Target tile where the zombie should walk to */
-	private Tile target;
+	private BarrierTile target;
 
 	/** The behaviour the zombie currently follows */
 	private ZombieBehaviour behaviour;
 
-	public Zombie(Tile spawn, Tile target) {
+	public Zombie(Tile spawn, BarrierTile target) {
 
 		this.x = spawn.getX();
 		this.y = spawn.getY();
