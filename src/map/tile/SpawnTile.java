@@ -8,6 +8,7 @@ import java.util.Random;
 
 import entity.livingEntity.zombie.Zombie;
 import entity.livingEntity.zombie.Zombie.ZombieType;
+import gameState.InGame;
 
 public class SpawnTile extends Tile {
 
@@ -20,16 +21,20 @@ public class SpawnTile extends Tile {
 	private HashMap<ZombieType, Integer> spawnQueue;
 
 	/** Target tile to walk to */
-	private Tile target;
+	private Tile barrierTarget;
 
-	public SpawnTile(int x, int y, int z, Tile target) {
+	public SpawnTile(int x, int y, int z, Tile barrierTarget) {
 
 		super(x, y, z, null, false, TileType.ZOMBIE_SPAWN);
 
-		this.target = target;
+		this.barrierTarget = barrierTarget;
 		this.timeElapsedSinceLastSpawn = 0;
 		this.spawnQueue = new HashMap<ZombieType, Integer>();
 
+	}
+	
+	public void setSpawnQueue(HashMap<ZombieType, Integer> spawnQueue) {
+		this.spawnQueue = spawnQueue;
 	}
 
 	public void update() {
@@ -51,7 +56,8 @@ public class SpawnTile extends Tile {
 		ZombieType type = getRandomZombieType();
 		switch (type) {
 		case NORMAL:
-			Zombie zombie = new Zombie(this, target);
+			Zombie zombie = new Zombie(this, barrierTarget);
+			InGame.getGame().getWaveController().addZombie(zombie);
 			break;
 
 		case INFECTED:

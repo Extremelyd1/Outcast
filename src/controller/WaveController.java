@@ -1,20 +1,30 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import entity.livingEntity.zombie.Zombie;
+import entity.livingEntity.zombie.Zombie.ZombieType;
+import map.tile.SpawnTile;
 
 public class WaveController {
 
-	private WavePhase phase;
+	private WavePhase wavePhase;
+	private int waveNumber;
 
+	/** All zombies in the current wave */
 	private List<Zombie> zombies;
+
+	/** All tiles zombies can spawn on */
+	private List<SpawnTile> spawnTiles;
 
 	public WaveController() {
 
-		this.phase = WavePhase.IDLE;
+		this.waveNumber = 0;
+		this.wavePhase = WavePhase.IDLE;
 		this.zombies = new ArrayList<Zombie>();
+		this.spawnTiles = new ArrayList<SpawnTile>();
 
 	}
 
@@ -22,7 +32,7 @@ public class WaveController {
 
 		updateZombies(delta);
 
-		switch (phase) {
+		switch (wavePhase) {
 		case AWAITING_INTERVAL:
 			break;
 		case SPAWNING_ZOMBIES:
@@ -47,12 +57,22 @@ public class WaveController {
 		for (Zombie zombie : toRemove) {
 			zombies.remove(zombie);
 		}
+
 	}
 
-	public void start() {
+	public void startWave() {
 
-		
-		
+		SpawnTile spawnTile = spawnTiles.get(0);
+
+		HashMap<ZombieType, Integer> spawnQueue = new HashMap<ZombieType, Integer>();
+		spawnQueue.put(ZombieType.NORMAL, 1);
+
+		spawnTile.setSpawnQueue(spawnQueue);
+
+	}
+
+	public void addZombie(Zombie zombie) {
+		zombies.add(zombie);
 	}
 
 	public enum WavePhase {

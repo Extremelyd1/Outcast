@@ -40,18 +40,22 @@ public class InGame implements GameState {
 	public Player getPlayer() {
 		return player;
 	}
+	
+	public WaveController getWaveController() {
+		return waveController;
+	}
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
 
 		map = new Map();
 		player = new Player(400, 400);
-		
+
 		this.debugger = new Debugger(this);
 
 		container.getInput().addKeyListener(new InGameKeyListener(this));
 
-		waveController.start();
+//		waveController.startWave();aaaaaaaaaaaa
 
 	}
 
@@ -67,7 +71,7 @@ public class InGame implements GameState {
 
 		map.render(g, container, player);
 		player.draw(g, container.getWidth(), container.getHeight());
-		
+
 		if (debugger.getVerbose())
 			debugger.showDebug(g, container);
 

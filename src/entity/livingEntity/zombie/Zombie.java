@@ -1,5 +1,8 @@
 package entity.livingEntity.zombie;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+
 import entity.livingEntity.LivingEntity;
 import map.tile.Tile;
 
@@ -43,6 +46,14 @@ public class Zombie extends LivingEntity {
 		return false;
 	}
 
+	@Override
+	public void draw(Graphics g) {
+
+		g.setColor(Color.red);
+		g.drawOval((float) x, (float) y, 6, 6);
+
+	}
+
 	private void walkToBarrier() {
 
 		if (Math.abs(x - target.getX()) < speed) {
@@ -54,7 +65,7 @@ public class Zombie extends LivingEntity {
 		} else {
 			motionX = 0;
 		}
-		
+
 		if (Math.abs(y - target.getY()) < speed) {
 			motionY = target.getY() - y;
 		} else if (y < target.getY()) {
